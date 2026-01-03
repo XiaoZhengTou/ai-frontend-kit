@@ -3,7 +3,8 @@
   "outputDirectory": "dist",
   "installCommand": "pnpm install",
   "framework": "vite",
-  "routes": [
-    { "src": "/tools(.*)", "dest": "/dev-tools$1" }
-  ]
+  "rewrites": [
+    { "source": "/tools(.*)", "destination": "/dev-tools/index.html" }
+  ],
+  "cleanUrls": true
 }
