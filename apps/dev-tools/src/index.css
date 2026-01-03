@@ -1,0 +1,32 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    font-family: 'JetBrains Mono', monospace;
+    line-height: 1.5;
+    font-weight: 400;
+    color-scheme: dark;
+  }
+
+  body {
+    margin: 0;
+    min-width: 320px;
+    min-height: 100vh;
+  }
+}
+
+@layer components {
+  .dev-card {
+    @apply bg-gray-800 rounded-lg p-6 border border-gray-700;
+  }
+
+  .dev-input {
+    @apply bg-gray-700 text-white px-3 py-2 rounded border border-gray-600 focus:outline-none focus:ring-2 focus:ring-blue-500;
+  }
+
+  .dev-button {
+    @apply bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded transition-colors;
+  }
+}

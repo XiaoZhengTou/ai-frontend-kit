@@ -1,0 +1,42 @@
+{
+  "name": "ai-frontend-studio",
+  "version": "1.0.0",
+  "description": "AI Frontend Studio - 集成3个月前端AI学习成果的全栈开发平台",
+  "private": true,
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
+  "scripts": {
+    "dev:main": "pnpm --filter @ai-frontend-studio/main-frontend dev",
+    "dev:tools": "pnpm --filter @ai-frontend-studio/dev-tools dev",
+    "build:main": "pnpm --filter @ai-frontend-studio/main-frontend build",
+    "build:tools": "pnpm --filter @ai-frontend-studio/dev-tools build",
+    "build": "pnpm -r build",
+    "dev": "concurrently \"pnpm dev:main\" \"pnpm dev:tools\"",
+    "lint": "pnpm -r lint",
+    "type-check": "pnpm -r type-check",
+    "clean": "pnpm -r clean",
+    "test": "pnpm -r test"
+  },
+  "devDependencies": {
+    "concurrently": "^8.2.2",
+    "typescript": "^5.2.2",
+    "vite": "^4.5.0"
+  },
+  "keywords": [
+    "ai",
+    "frontend",
+    "react",
+    "typescript",
+    "vercel",
+    "monorepo",
+    "studio"
+  ],
+  "author": "AI Frontend Studio Team",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/your-username/ai-frontend-studio.git"
+  }
+}
