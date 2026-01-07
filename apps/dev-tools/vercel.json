@@ -4,7 +4,7 @@
   "installCommand": "pnpm install",
   "framework": "vite",
   "rewrites": [
-    { "source": "/tools(.*)", "destination": "/dev-tools/index.html" }
+    { "source": "/(.*)", "destination": "/index.html" }
   ],
   "cleanUrls": true
 }
