@@ -1,9 +1,10 @@
 {
-  "buildCommand": "npm install && npm run build",
-  "outputDirectory": "dist",
+  "buildCommand": "cd ../.. && pnpm install && pnpm --filter dev-tools build",
+  "outputDirectory": "apps/dev-tools/dist",
   "framework": "vite",
   "rewrites": [
     { "source": "/(.*)", "destination": "/index.html" }
   ],
-  "cleanUrls": true
+  "cleanUrls": true,
+  "installCommand": "cd ../.. && pnpm install"
 }
