@@ -1,7 +1,6 @@
 {
-  "buildCommand": "pnpm build",
+  "buildCommand": "npx pnpm install --no-frozen-lockfile && npx pnpm build",
   "outputDirectory": "dist",
-  "installCommand": "corepack enable && corepack prepare pnpm@latest --activate",
   "framework": "vite",
   "rewrites": [
     { "source": "/(.*)", "destination": "/index.html" }
