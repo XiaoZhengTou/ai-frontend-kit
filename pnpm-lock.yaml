@@ -20,12 +20,6 @@ importers:
 
   apps/dev-tools:
     dependencies:
-      '@ai-frontend-studio/ai-frontend-kit':
-        specifier: workspace:*
-        version: link:../../packages/ai-frontend-kit
-      '@ai-frontend-studio/shared-components':
-        specifier: workspace:*
-        version: link:../../packages/shared-components
       react:
         specifier: ^18.2.0
         version: 18.3.1
