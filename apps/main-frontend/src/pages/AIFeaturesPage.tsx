@@ -1,9 +1,15 @@
 import { useState } from 'react'
 
-export function AIFeaturesPage() {
-  const [activeDemo, setActiveDemo] = useState('streaming')
+interface DemoInfo {
+  title: string
+  description: string
+  component: React.ReactNode
+}
 
-  const demos = {
+export function AIFeaturesPage() {
+  const [activeDemo, setActiveDemo] = useState<'streaming' | 'multimodal' | 'sdk'>('streaming')
+
+  const demos: Record<string, DemoInfo> = {
     streaming: {
       title: '流式渲染演示',
       description: '模拟 AI 实时响应，支持打字机效果',
@@ -31,10 +37,10 @@ export function AIFeaturesPage() {
       </div>
 
       <div className="flex justify-center space-x-4">
-        {Object.entries(demos).map(([key, demo]) => (
+        {(Object.entries(demos) as [string, DemoInfo][]).map(([key, demo]) => (
           <button
             key={key}
-            onClick={() => setActiveDemo(key)}
+            onClick={() => setActiveDemo(key as 'streaming' | 'multimodal' | 'sdk')}
             className={`px-6 py-3 rounded-lg font-medium transition-colors ${
               activeDemo === key
                 ? 'bg-blue-600 text-white'
