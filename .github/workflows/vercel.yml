@@ -7,8 +7,9 @@ on:
     branches: [main]
 
 jobs:
-  deploy:
+  deploy-main:
     runs-on: ubuntu-latest
+    if: contains(join(github.event.commits.*.modified, '') + join(github.event.commits.*.added, ''), 'apps/main-frontend') || contains(join(github.event.commits.*.modified, '') + join(github.event.commits.*.added, ''), 'packages/')
     
     steps:
       - name: Checkout code
@@ -28,12 +29,34 @@ jobs:
         run: pnpm install
 
       - name: Build
-        run: pnpm build
+        run: pnpm build --filter=main-frontend
 
-      - name: Deploy to Vercel
-        uses: amondnet/vercel-action@v25
+      - name: Deploy main-frontend to Vercel
+        run: npx vercel --token=${{ secrets.VERCEL_TOKEN }} --prod
+
+  deploy-devtools:
+    runs-on: ubuntu-latest
+    if: contains(join(github.event.commits.*.modified, '') + join(github.event.commits.*.added, ''), 'apps/dev-tools') || contains(join(github.event.commits.*.modified, '') + join(github.event.commits.*.added, ''), 'packages/')
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
         with:
-          vercel-token: ${{ secrets.VERCEL_TOKEN }}
-          vercel-org-id: ${{ secrets.ORG_ID }}
-          vercel-project-id: ${{ secrets.PROJECT_ID }}
-          vercel-args: '--prod'
+          node-version: '18'
+
+      - name: Install pnpm
+        uses: pnpm/action-setup@v2
+        with:
+          version: 8
+
+      - name: Install dependencies
+        run: pnpm install
+
+      - name: Build
+        run: pnpm build --filter=dev-tools
+
+      - name: Deploy dev-tools to Vercel
+        run: npx vercel --token=${{ secrets.VERCEL_TOKEN }} --prod
