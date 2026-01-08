@@ -9,7 +9,7 @@ on:
 jobs:
   deploy-main:
     runs-on: ubuntu-latest
-    if: contains(join(github.event.commits.*.modified, '') + join(github.event.commits.*.added, ''), 'apps/main-frontend') || contains(join(github.event.commits.*.modified, '') + join(github.event.commits.*.added, ''), 'packages/')
+    if: contains(join(github.event.commits.*.modified, ','), 'apps/main-frontend') || contains(join(github.event.commits.*.added, ','), 'apps/main-frontend') || contains(join(github.event.commits.*.modified, ','), 'packages/') || contains(join(github.event.commits.*.added, ','), 'packages/')
     
     steps:
       - name: Checkout code
@@ -34,7 +34,7 @@ jobs:
 
   deploy-devtools:
     runs-on: ubuntu-latest
-    if: contains(join(github.event.commits.*.modified, '') + join(github.event.commits.*.added, ''), 'apps/dev-tools') || contains(join(github.event.commits.*.modified, '') + join(github.event.commits.*.added, ''), 'packages/')
+    if: contains(join(github.event.commits.*.modified, ','), 'apps/dev-tools') || contains(join(github.event.commits.*.added, ','), 'apps/dev-tools') || contains(join(github.event.commits.*.modified, ','), 'packages/') || contains(join(github.event.commits.*.added, ','), 'packages/')
     
     steps:
       - name: Checkout code
