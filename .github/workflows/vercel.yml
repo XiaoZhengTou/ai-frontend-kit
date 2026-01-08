@@ -23,9 +23,6 @@ jobs:
       - name: Install pnpm
         run: npm install -g pnpm@8
 
-      - name: Install dependencies
-        run: pnpm install
-      
       - name: Cache pnpm store
         uses: actions/cache@v4
         with:
@@ -33,6 +30,9 @@ jobs:
           key: ${{ runner.os }}-pnpm-${{ hashFiles('**/pnpm-lock.yaml') }}
           restore-keys: |
             ${{ runner.os }}-pnpm-
+
+      - name: Install dependencies
+        run: pnpm install
 
       - name: Build
         run: pnpm build --filter=main-frontend
@@ -56,9 +56,6 @@ jobs:
       - name: Install pnpm
         run: npm install -g pnpm@8
 
-      - name: Install dependencies
-        run: pnpm install
-      
       - name: Cache pnpm store
         uses: actions/cache@v4
         with:
@@ -66,6 +63,9 @@ jobs:
           key: ${{ runner.os }}-pnpm-${{ hashFiles('**/pnpm-lock.yaml') }}
           restore-keys: |
             ${{ runner.os }}-pnpm-
+
+      - name: Install dependencies
+        run: pnpm install
 
       - name: Build
         run: pnpm build --filter=dev-tools
