@@ -1,0 +1,51 @@
+name: Deploy to Gitee Pages
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  deploy-main:
+    runs-on: ubuntu-latest
+    if: contains(join(github.event.commits.*.modified, ','), 'apps/main-frontend') || contains(join(github.event.commits.*.added, ','), 'apps/main-frontend') || contains(join(github.event.commits.*.modified, ','), 'packages/') || contains(join(github.event.commits.*.added, ','), 'packages/') || contains(join(github.event.commits.*.modified, ','), '.github/workflows/') || contains(join(github.event.commits.*.added, ','), '.github/workflows/')
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+
+      - name: Install pnpm
+        run: npm install -g pnpm@8
+
+      - name: Cache pnpm store
+        uses: actions/cache@v4
+        with:
+          path: ~/.pnpm-store
+          key: ${{ runner.os }}-pnpm-${{ hashFiles('**/pnpm-lock.yaml') }}
+          restore-keys: |
+            ${{ runner.os }}-pnpm-
+
+      - name: Install dependencies
+        run: pnpm install
+
+      - name: Build main-frontend
+        run: pnpm build:main
+
+      - name: Deploy to Gitee Pages
+        uses: yanglbme/gitee-pages-action@v4
+        with:
+          gitee-username: ${{ secrets.GITEE_USERNAME }}
+          gitee-password: ${{ secrets.GITEE_PASSWORD }}
+          gitee-repo: xuzhen06/ai-frontend-studio
+          branch: gh-pages
+          directory: ./apps/main-frontend/dist
+          keep-history: true
+          force-push: true
